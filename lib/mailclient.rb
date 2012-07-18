@@ -13,6 +13,12 @@ class MailClient
     @accounts[new_account.get_id] = new_account
   end
 
+  def remove_account(id)
+    if @accounts.delete(id) == nil
+      return :ACCOUNT_DNE_ERROR
+    end
+  end
+
   def get_account_ids
     @accounts.keys
   end

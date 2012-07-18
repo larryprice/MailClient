@@ -29,7 +29,7 @@ require_relative '../lib/mailclient'
 
   def test_mailcient_should_be_able_to_add_accounts
     begin
-      @client.add_account Account.new(:id)
+      @client.add_account Account.new(:address)
     rescue
       result = :exception_thrown
     end
@@ -37,13 +37,13 @@ require_relative '../lib/mailclient'
   end
 
   def test_mailcient_adding_account_changes_accounts_size
-    @client.add_account Account.new(:id)
+    @client.add_account Account.new(:address)
     assert_equal(1, @client.get_num_accounts)
   end
 
   def test_mailcient_should_be_able_to_add_multiple_accounts
     
-    [Account.new(:id1), Account.new(:id2), Account.new(:id3)].each do |acct|
+    [Account.new(:address1), Account.new(:address2), Account.new(:address3)].each do |acct|
       @client.add_account acct
     end
 
@@ -60,10 +60,11 @@ require_relative '../lib/mailclient'
   end
 
   def test_mailcient_returns_correct_account_ids
-    [Account.new(:id1), Account.new(:id2), Account.new(:id3)].each do |acct|
-      @client.add_account acct
+    3.times do |n|
+      @client.add_account flexmock("Account", :get_id => n)
     end
-    assert_equal 3, (@client.get_account_ids & [:id1, :id2, :id3]).size
+
+    assert_equal 3, (@client.get_account_ids & [0,1,2]).size
   end
 
   def test_mailcient_can_get_mail
@@ -98,6 +99,29 @@ require_relative '../lib/mailclient'
       result = e.message
     end
     assert_nil result, result
+  end
+
+  def test_mailcient_can_remove_accounts
+    account = flexmock("Account", :get_id => :id)
+    @client.add_account(account)
+    begin
+      @client.remove_account account.get_id
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_mailcient_removes_specified_accounts
+    account = flexmock("Account", :get_id => :id)
+    @client.add_account(account)
+    @client.remove_account(account.get_id)
+    assert_false @client.get_account_ids.include?(account.get_id)
+  end
+
+  def test_mailcient_returns_error_when_account_id_not_found
+    assert_equal :ACCOUNT_DNE_ERROR, @client.remove_account(:id)
   end
 
 end

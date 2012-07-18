@@ -3,7 +3,7 @@ require_relative '../lib/account'
 
 class TC_MailCient < Test::Unit::TestCase
   def setup
-    @account = Account.new(:id)
+    @account = Account.new(:address)
   end
 
   def teardown
@@ -11,7 +11,7 @@ class TC_MailCient < Test::Unit::TestCase
 
   def test_can_create_account
     begin
-      account = Account.new :id
+      account = Account.new :address
     rescue Exception => e
       result = e.message
     end
@@ -41,10 +41,11 @@ class TC_MailCient < Test::Unit::TestCase
     assert_equal :id, @account.get_id, "Set ID does not match ID from get_id"
   end
 
-  def test_account_can_set_id_in_initialization
+  def test_account_can_set_address_in_initialization
     
-    account = Account.new :id
-    assert_equal :id, account.get_id, "Set ID in initialization does not match ID from get_id"
+    account = Account.new :address
+    assert_equal :address, account.get_address,
+      "Set ID in initialization does not match ID from get_id"
   end
 
   def test_account_can_get_mail
@@ -54,6 +55,131 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
     assert_nil result, result
+  end
+
+  def test_account_has_address
+    begin
+      @account.get_address
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_can_set_address
+    begin
+      @account.set_address :address
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_set_address_sets_address
+    @account.set_address :address
+    assert_equal :address, @account.get_address
+  end
+
+  def test_account_can_get_name
+    begin
+      @account.get_name
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_can_set_name
+    begin
+      @account.set_name :name
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_set_name_sets_address
+    @account.set_name :name
+    assert_equal :name, @account.get_name
+  end
+
+  def test_account_can_get_reply_to_address
+    begin
+      @account.get_reply_to
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_can_set_reply_to_address
+    begin
+      @account.set_reply_to(:reply_to)
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_set_reply_to_address_sets_reply_to
+    @account.set_reply_to(:reply_to)
+    assert_equal :reply_to, @account.get_reply_to
+  end
+
+  def test_account_can_get_outgoing_server
+    begin
+      @account.get_outgoing_server
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_can_set_outgoing_server
+    begin
+      @account.set_outgoing_server(:outgoing_server)
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_set_outgoing_server_sets_outgoing_server
+    @account.set_outgoing_server(:outgoing_server)
+    assert_equal :outgoing_server, @account.get_outgoing_server
+  end
+
+  def test_account_can_get_incoming_server
+    begin
+      @account.get_incoming_server
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_can_set_incoming_server
+    begin
+      @account.set_incoming_server(:incoming_server)
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_account_set_incoming_server_sets_incoming_server
+    @account.set_incoming_server(:incoming_server)
+    assert_equal :incoming_server, @account.get_incoming_server
   end
 
 end
