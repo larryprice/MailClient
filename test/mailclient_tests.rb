@@ -4,7 +4,7 @@ require_relative '../lib/mailclient'
 
  class TC_MailCient < Test::Unit::TestCase
   def setup
-    @client = MailClient.new
+    @client = MailClient
   end
 
   def teardown
