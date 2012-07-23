@@ -208,4 +208,59 @@ class TC_MailCient < Test::Unit::TestCase
       @server.humanize_enum(:Me_AND_You_AND_The_Bottle)
   end
 
+  def test_server_can_get_server_type
+    begin
+      @server.get_type
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_server_can_set_server_type
+    begin
+      @server.set_type(:type)
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_server_set_type_sets_server_type
+    @server.set_type(:IMAP)
+    assert_equal :IMAP, @server.get_type
+  end
+  
+  def test_server_set_type_does_not_set_invalid_server_type
+    @server.set_type(:type)
+    assert_not_equal :type, @server.get_type
+  end
+
+  def test_server_can_get_password
+    begin
+      @server.get_password
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_server_can_set_password
+    begin
+      @server.set_password(:password)
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result, result
+  end
+
+  def test_server_set_password_sets_password
+    @server.set_password(:password)
+    assert_equal :password, @server.get_password
+  end
+
 end

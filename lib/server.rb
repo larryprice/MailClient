@@ -4,6 +4,7 @@ class Server
   @@AuthenticationMethods = [:Normal_Password, :Encrypted_Password,
     :Kerberos_AND_GSSAPI, :NTLM, :TLS_Certificate]
   @@ConnectionSecurityTypes = [:None, :STARTTLS, :SSL_AND_TLS]
+  @@ServerTypes = [:POP3, :IMAP]
   
   def initialize
     
@@ -70,5 +71,23 @@ class Server
         enum_string.gsub(/_/, ' ')
       end
     end
+  end
+
+  # Server Type: POP3 or IMAP
+  def get_type
+    @type
+  end
+  def set_type(type)
+    if @@ServerTypes.include? type
+      @type = type
+    end
+  end
+
+  # User password
+  def get_password
+    @password
+  end
+  def set_password(password)
+    @password = password
   end
 end
