@@ -90,4 +90,8 @@ class Server
   def set_password(password)
     @password = password
   end
+
+  def connect
+    
+  end
 end

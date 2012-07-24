@@ -16,7 +16,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
     
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_get_name
@@ -26,7 +26,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_name
@@ -36,7 +36,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_name_sets_name
@@ -51,7 +51,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_description
@@ -61,7 +61,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_description_sets_description
@@ -76,7 +76,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_port_number
@@ -86,7 +86,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_port_number_sets_port_number
@@ -101,7 +101,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_username
@@ -111,7 +111,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_username_sets_username
@@ -126,7 +126,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_authentication_method
@@ -136,7 +136,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_authentication_method_sets_authentication_method
@@ -168,7 +168,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_connection_security_type
@@ -178,7 +178,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_connection_security_type_sets_connection_security_type
@@ -215,7 +215,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_server_type
@@ -225,7 +225,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_type_sets_server_type
@@ -245,7 +245,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_can_set_password
@@ -255,12 +255,22 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_server_set_password_sets_password
     @server.set_password(:password)
     assert_equal :password, @server.get_password
+  end
+
+  def test_server_can_connect
+    begin
+      @server.connect
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result
   end
 
 end

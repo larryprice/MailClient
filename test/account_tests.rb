@@ -1,4 +1,5 @@
 require 'test/unit'
+require 'flexmock/test_unit'
 require_relative '../lib/account'
 
 class TC_MailCient < Test::Unit::TestCase
@@ -15,7 +16,7 @@ class TC_MailCient < Test::Unit::TestCase
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_has_id
@@ -24,7 +25,7 @@ class TC_MailCient < Test::Unit::TestCase
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_can_set_id
@@ -33,7 +34,7 @@ class TC_MailCient < Test::Unit::TestCase
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_id_set_is_equal_to_id_get
@@ -54,7 +55,7 @@ class TC_MailCient < Test::Unit::TestCase
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_has_address
@@ -64,7 +65,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_can_set_address
@@ -74,7 +75,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_set_address_sets_address
@@ -89,7 +90,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_can_set_name
@@ -99,7 +100,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_set_name_sets_address
@@ -114,7 +115,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_can_set_reply_to_address
@@ -124,7 +125,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_set_reply_to_address_sets_reply_to
@@ -139,7 +140,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_can_set_outgoing_server
@@ -149,7 +150,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_set_outgoing_server_sets_outgoing_server
@@ -164,7 +165,7 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_can_set_incoming_server
@@ -174,12 +175,39 @@ class TC_MailCient < Test::Unit::TestCase
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_account_set_incoming_server_sets_incoming_server
     @account.set_incoming_server(:incoming_server)
     assert_equal :incoming_server, @account.get_incoming_server
+  end
+
+  def test_account_can_connect
+    server = flexmock("Server", :connect => nil)
+    @account.set_incoming_server server
+
+    begin
+      @account.connect
+    rescue Exception => e
+      result = e.message
+    end
+    
+    assert_nil result
+  end
+
+  def test_account_calls_connect_on_server
+    server = flexmock("Server")
+    server.should_receive(:connect).once.and_return(nil)
+    @account.set_incoming_server server
+
+    @account.connect
+    begin
+      flexmock_verify()
+    rescue Exception => e
+      result = e.message
+    end
+    assert_nil result
   end
 
 end

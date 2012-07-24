@@ -56,7 +56,7 @@ require_relative '../lib/mailclient'
     rescue
       result = :exception_thrown
     end
-    assert_nil result, result.to_s
+    assert_nil result.to_s
   end
 
   def test_mailcient_returns_correct_account_ids
@@ -73,7 +73,7 @@ require_relative '../lib/mailclient'
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_mailcient_can_get_mail_for_individual_accounts
@@ -82,7 +82,7 @@ require_relative '../lib/mailclient'
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_mailcient_get_mail_calls_get_mail_on_all_accounts
@@ -98,7 +98,7 @@ require_relative '../lib/mailclient'
     rescue Exception => e
       result = e.message
     end
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_mailcient_can_remove_accounts
@@ -110,7 +110,7 @@ require_relative '../lib/mailclient'
       result = e.message
     end
 
-    assert_nil result, result
+    assert_nil result
   end
 
   def test_mailcient_removes_specified_accounts

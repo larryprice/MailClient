@@ -1,3 +1,5 @@
+require 'net/imap'
+require 'thread'
 
 class Account
   def initialize(address)
@@ -60,5 +62,13 @@ class Account
   # invokes a ping on the mail server to check for differences
   def get_mail
     
+  end
+
+  def connect
+    @incoming_server.connect
+#    Thread.new do
+#      @incoming_server.connect
+#      @connected = true
+#    end
   end
 end
