@@ -1,4 +1,6 @@
-#
+# Tapir
+
+require 'net/imap'
 
 class Server
   @@AuthenticationMethods = [:Normal_Password, :Encrypted_Password,
@@ -7,15 +9,15 @@ class Server
   @@ServerTypes = [:POP3, :IMAP]
   
   def initialize
-    
+    @imap = nil
   end
 
-  # Name used to identify this server
-  def get_name
-    @name
+  # Host used to identify this server
+  def get_host
+    @host
   end
-  def set_name(name)
-    @name = name
+  def set_host(name)
+    @host = name
   end
 
   # Description for this server
@@ -91,7 +93,19 @@ class Server
     @password = password
   end
 
+  # connect to the specified server
   def connect
-    
+    if @imap.nil?
+        @imap = Net::IMAP.new(@host, @port_number, true)
+    end
+  end
+  def disconnect
+    if is_connected?
+      @imap.disconnect
+    end
+  end
+  
+  def is_connected?
+    return !@imap.nil? && !@imap.disconnected?
   end
 end

@@ -12,8 +12,8 @@ class TC_MailCient < Test::Unit::TestCase
 
   def test_can_create_account
     begin
-      account = Account.new :address
-    rescue Exception => e
+      Account.new :address
+    rescue NoMethodError => e
       result = e.message
     end
     assert_nil result
@@ -22,7 +22,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_has_id
     begin
       @account.get_id
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
     assert_nil result
@@ -31,7 +31,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_set_id
     begin
       @account.set_id :id
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
     assert_nil result
@@ -52,7 +52,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_get_mail
     begin
       @account.get_mail
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
     assert_nil result
@@ -61,7 +61,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_has_address
     begin
       @account.get_address
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -71,7 +71,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_set_address
     begin
       @account.set_address :address
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -86,7 +86,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_get_name
     begin
       @account.get_name
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -96,7 +96,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_set_name
     begin
       @account.set_name :name
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -111,7 +111,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_get_reply_to_address
     begin
       @account.get_reply_to
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -121,7 +121,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_set_reply_to_address
     begin
       @account.set_reply_to(:reply_to)
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -136,7 +136,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_get_outgoing_server
     begin
       @account.get_outgoing_server
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -146,7 +146,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_set_outgoing_server
     begin
       @account.set_outgoing_server(:outgoing_server)
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -161,7 +161,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_get_incoming_server
     begin
       @account.get_incoming_server
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -171,7 +171,7 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_can_set_incoming_server
     begin
       @account.set_incoming_server(:incoming_server)
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -189,7 +189,7 @@ class TC_MailCient < Test::Unit::TestCase
 
     begin
       @account.connect
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
     
@@ -204,7 +204,7 @@ class TC_MailCient < Test::Unit::TestCase
     @account.connect
     begin
       flexmock_verify()
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
     assert_nil result

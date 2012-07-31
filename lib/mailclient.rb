@@ -14,7 +14,7 @@ class MailClient
   end
 
   def remove_account(id)
-    if @accounts.delete(id) == nil
+    if @accounts.delete(id).nil?
       return :ACCOUNT_DNE_ERROR
     end
   end
