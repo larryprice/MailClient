@@ -65,6 +65,34 @@ class Account
   end
 
   def connect
-    @incoming_server.connect
+    if !@incoming_server.nil?
+      @incoming_server.connect
+    else
+      :SERVER_NIL_ERROR
+    end
+  end
+
+  # time to wait for server before stopping request
+  def get_connect_timeout
+    @connect_timeout
+  end
+  def set_connect_timeout(timeout_in_seconds)
+    @connect_timeout = timeout_in_seconds.to_i
+  end
+
+  def login
+    if !@incoming_server.nil?
+      @incoming_server.login
+    else
+      :SERVER_NIL_ERROR
+    end
+  end
+
+  def is_connected?
+    if !@incoming_server.nil?
+      @incoming_server.is_connected?
+    else
+      :SERVER_NIL_ERROR
+    end
   end
 end

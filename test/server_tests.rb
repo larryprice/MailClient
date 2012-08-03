@@ -324,6 +324,14 @@ class TC_MailCient < Test::Unit::TestCase
     assert_false @server.is_connected?
   end
 
-  
+  def test_server_can_login
+    begin
+      @server.login
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
 
 end

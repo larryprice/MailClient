@@ -204,10 +204,97 @@ class TC_MailCient < Test::Unit::TestCase
     @account.connect
     begin
       flexmock_verify()
-    rescue NoMethodError => e
+    rescue Exception => e
       result = e.message
     end
     assert_nil result
+  end
+
+  def test_connect_returns_error_message_if_nil_account
+    assert_equal :SERVER_NIL_ERROR, @account.connect
+  end
+
+  def test_account_can_get_connect_timeout
+    begin
+      @account.get_connect_timeout
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_account_can_set_connect_timeout
+    begin
+      @account.set_connect_timeout "timeout"
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_account_set_connect_timeout_sets_connect_timeout_for_string
+    @account.set_connect_timeout "10"
+    assert_equal 10, @account.get_connect_timeout
+  end
+
+  def test_account_set_connect_timeout_sets_connect_timeout_for_int
+    @account.set_connect_timeout 10
+    assert_equal 10, @account.get_connect_timeout
+  end
+
+  def test_account_set_connect_timeout_does_not_set_connect_timeout_for_non_numeric_string
+    @account.set_connect_timeout "this is not a number"
+    assert_not_equal "this is not a number", @account.get_connect_timeout
+  end
+
+  def test_account_can_login
+    begin
+      @account.login
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_account_login_requests_login_from_server
+    server = flexmock("Server")
+    server.should_receive(:login).once.and_return(nil)
+    @account.set_incoming_server server
+
+    @account.login
+    begin
+      flexmock_verify()
+    rescue Exception => e
+      result = e.message
+    end
+    assert_nil result
+  end
+
+  def test_account_login_returns_error_for_nil_server
+    assert_not_nil @account.login
+  end
+
+  def test_account_can_get_is_connected
+    begin
+      @account.is_connected?
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_account_is_connected_returns_server_is_connected
+    server = flexmock("Server", :is_connected? => true)
+    @account.set_incoming_server server
+    assert_equal server.is_connected?, @account.is_connected?
+  end
+
+  def test_account_is_connected_returns_error_for_nil_server
+    assert_not_nil @account.is_connected?
   end
 
 end

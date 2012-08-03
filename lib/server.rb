@@ -105,6 +105,10 @@ class Server
     end
   end
   
+  def login
+
+  end
+  
   def is_connected?
     return !@imap.nil? && !@imap.disconnected?
   end
