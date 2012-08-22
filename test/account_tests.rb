@@ -287,14 +287,50 @@ class TC_MailCient < Test::Unit::TestCase
     assert_nil result
   end
 
-  def test_account_is_connected_returns_server_is_connected
-    server = flexmock("Server", :is_connected? => true)
+  def test_account_is_connected_calls_server_is_connected
+    server = flexmock("Server")
+    server.should_receive(:is_connected?).once.and_return(true)
     @account.set_incoming_server server
-    assert_equal server.is_connected?, @account.is_connected?
+    @account.is_connected?
+
+    begin
+      flexmock_verify()
+    rescue Exception => e
+      result = e.message
+    end
+
+    assert_nil result
   end
 
   def test_account_is_connected_returns_error_for_nil_server
     assert_not_nil @account.is_connected?
+  end
+
+  def test_account_can_get_contacts
+    begin
+      @account.get_contacts
+    rescue NoMethodError => e
+      result = e
+    end
+
+    assert_nil result
+  end
+
+  def test_account_can_add_contact
+    begin
+      @account.add_contact(:CONTACT)
+    rescue NoMethodError => e
+      result = e
+    end
+
+    assert_nil result
+  end
+
+  def test_account_adding_contact_adds_contact
+    num_contacts = @account.get_contacts.size
+    @account.add_contact(:CONTACT)
+    assert_equal num_contacts+1, @account.get_contacts.size
+    assert_equal :CONTACT, @account.get_contacts[num_contacts]
   end
 
 end

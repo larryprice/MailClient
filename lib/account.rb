@@ -6,6 +6,8 @@ class Account
     @address = address
     @id = address
     @reply_to = address
+
+    @contacts = Array.new
   end
 
   # ID is the Account ID the user has associated with the account
@@ -94,5 +96,13 @@ class Account
     else
       :SERVER_NIL_ERROR
     end
+  end
+
+  def get_contacts
+    @contacts
+  end
+
+  def add_contact(contact)
+    @contacts << contact
   end
 end
