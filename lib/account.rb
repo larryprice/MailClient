@@ -105,4 +105,8 @@ class Account
   def add_contact(contact)
     @contacts << contact
   end
+
+  def remove_contact(contact)
+    @contacts.delete contact
+  end
 end

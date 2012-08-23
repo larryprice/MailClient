@@ -329,8 +329,36 @@ class TC_MailCient < Test::Unit::TestCase
   def test_account_adding_contact_adds_contact
     num_contacts = @account.get_contacts.size
     @account.add_contact(:CONTACT)
+    
     assert_equal num_contacts+1, @account.get_contacts.size
     assert_equal :CONTACT, @account.get_contacts[num_contacts]
+  end
+
+  def test_account_can_remove_contact
+    begin
+      @account.remove_contact(:CONTACT)
+    rescue NoMethodError => e
+      result = e
+    end
+
+    assert_nil result
+  end
+
+  def test_account_remove_contact_removes_from_list
+    @account.add_contact(:CONTACT)
+    assert @account.get_contacts.include? :CONTACT
+    @account.remove_contact(:CONTACT)
+    assert_false @account.get_contacts.include? :CONTACT
+  end
+  
+  def test_account_remove_contact_not_in_list
+    begin
+      @account.remove_contact(:CONTACT)
+    rescue Exception => e
+      result = e.message
+    end
+    
+    assert_nil result
   end
 
 end
