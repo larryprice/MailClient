@@ -26,7 +26,7 @@ require_relative '../lib/mail'
   def test_mail_can_get_sender
     begin
       @mail.get_sender
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -40,7 +40,7 @@ require_relative '../lib/mail'
   def test_mail_can_get_subject
     begin
       @mail.get_subject
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -54,7 +54,7 @@ require_relative '../lib/mail'
   def test_mail_can_get_message
     begin
       @mail.get_message
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -68,7 +68,7 @@ require_relative '../lib/mail'
   def test_mail_can_get_reply_to
     begin
       @mail.get_reply_to
-    rescue Exception => e
+    rescue NoMethodError => e
       result = e.message
     end
 
@@ -91,6 +91,47 @@ require_relative '../lib/mail'
 
   def test_mail_constructor_sets_time_sent
     assert_equal TEST_TIME_SENT, @mail.get_time_sent
+  end
+
+  def test_mail_can_get_time_read
+    begin
+      @mail.get_time_read
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_mail_can_mark_read
+    begin
+      @mail.mark_read
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_mail_set_has_been_read_sets_time_read_to_datetime_now
+    @mail.mark_read
+    assert_in_delta DateTime.now.to_time, @mail.get_time_read.to_time, 10
+  end
+
+  def test_mail_can_get_read
+    begin
+      @mail.get_read
+    rescue NoMethodError => e
+      result = e.message
+    end
+
+    assert_nil result
+  end
+
+  def test_mail_mark_read_sets_get_read
+    assert_false @mail.get_read
+    @mail.mark_read
+    assert @mail.get_read
   end
 
 end

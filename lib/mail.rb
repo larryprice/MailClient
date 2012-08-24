@@ -1,3 +1,5 @@
+require 'date'
+
 class Mail
   def initialize(sender, subject, message, reply_to, time_sent)
     @sender = sender
@@ -25,6 +27,18 @@ class Mail
 
   def get_time_sent
     @time_sent
+  end
+
+  def get_time_read
+    @time_read
+  end
+
+  def mark_read
+    @time_read = DateTime.now
+  end
+
+  def get_read
+    !@time_read.nil?
   end
 
 end
